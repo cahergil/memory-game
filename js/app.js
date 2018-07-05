@@ -2,6 +2,7 @@
 /*
  * Initialization of gloval variables
  */
+
 let faArray = ['fa-diamond',
 'fa-paper-plane-o',
 'fa-anchor',
@@ -22,21 +23,71 @@ let faArray = ['fa-diamond',
 
 let openCardsList =new Array(16);
 
+let moveCounter;
+let start, end,seconds = 0,minutes = 0,hours =0,intervalId = -1;
+let timeTag;
 /*
  *
  *   Starts the game
  *
  *
  */
+
+//init timer
+initTimer();
+//Initialization of the move moveCounter
+initilizeMoveCounter();
+//Initialization of the main panel(deck container) and cards
 createDeckCards();
 //after creation of card, set an event listener for each card
 setEventListenerOnCards();
 //set event listener on start(or restart) button;
 setEventListenerOnStartButton()
 
+function initTimer(){
+  timeTag = document.querySelector('.timer');
+  if(intervalId !== -1) {
+    clearInterval(intervalId);
+    timeTag.innerHTML = '00:00:00';
+    hours = 0;
+    minutes = 0;
+    seconds = 0;
+  }
+  timer();
 
+}
+
+
+
+function timer(){
+  //t used to cleartime out later
+  intervalId= setInterval(add,1000);
+  console.log(intervalId);
+
+}
+
+function add() {
+  seconds++;
+
+  if(seconds >= 60) {
+    seconds = 0;
+    minutes++;
+    if(minutes >= 60 ){
+      munites = 0;
+      hours++;
+    }
+
+  }
+
+  timeTag.innerHTML =  (hours ? (hours > 9 ? hours : "0" + hours) : "00") +
+  ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") +
+  ":" + (seconds > 9 ? seconds : "0" + seconds);
+  console.log(timeTag.textContext);
+
+}
 
 function createDeckCards() {
+  //reset list of opened cards to empty
   openCardsList.fill('',0,openCardsList.lenght);
   /*
    * Display the cards on the page
@@ -65,17 +116,20 @@ function createDeckCards() {
 
 
 function pressStartButton(){
-  console.log("pressStartButton");
+
   createDeckCards();
   setEventListenerOnCards();
-
+  initTimer();
+  initilizeMoveCounter();
 
 }
 
 
 //click callback
 function cardClicked(event) {
-  displayCardSymbol(event);
+   moveCounter++;
+   checkMoveCounterStatus();
+   displayCardSymbol(event);
    if(secondCardClicked() ) {
 
        if(isThereAMatch()) {
@@ -83,6 +137,8 @@ function cardClicked(event) {
            removeCardsFromOpenedCardList();
            if(isGameFinished()) {
             // stopTimer();
+              clearInterval(intervalId);
+
             // showPopUp();
            }
 
@@ -179,6 +235,39 @@ function isGameFinished() {
  return document.querySelectorAll('.card.match').length === 16 ? true: false;
 
 }
+
+function initilizeMoveCounter(){
+
+  moveCounter = 0;
+  document.querySelector('.moves').innerHTML = moveCounter;
+  const nodeList = document.querySelectorAll('.fa-star');
+  nodeList.forEach(function(element){
+    element.style.color = '#ff8800';
+  });
+
+
+}
+
+
+function checkMoveCounterStatus(){
+     document.querySelector('.moves').innerHTML = moveCounter;
+     if(moveCounter<20) {
+
+     } else if (moveCounter<40) {
+
+       document.querySelector('.fa-star:nth-child(3)').style.color = '#ccc';
+
+     } else {
+
+        //http://nthmaster.com/
+        document.querySelector('.fa-star:nth-child(n+2)').style.color = '#ccc';
+     }
+
+
+}
+
+
+
 
 
 function setEventListenerOnStartButton() {

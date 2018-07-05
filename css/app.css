@@ -106,17 +106,20 @@ header {
     /*text-align: left; */
     width: 100%;
     margin-bottom: 10px;
+    background-color: #EEEEEE;
+    border-radius: 10px;
+
 
 }
 
 
 .score-panel .score-panel-box {
 
-    width: 33%;
+    width: 33.333%;
     text-align: center;
-    background-color: #EEEEEE;
     height: 70px;
     line-height: 70px;
+
 }
 
 
@@ -147,5 +150,9 @@ header {
 } */
 
 .fa-star:nth-child(3) {
-  margin-right: 20px;
+  margin-right: 10px;
+}
+
+.moves {
+  width: 25px;
 }
