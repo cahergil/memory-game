@@ -1,5 +1,6 @@
+
 /*
- * Create a list that holds all of your cards
+ * Initialization of gloval variables
  */
 let faArray = ['fa-diamond',
 'fa-paper-plane-o',
@@ -20,33 +21,57 @@ let faArray = ['fa-diamond',
 ,]
 
 let openCardsList =new Array(16);
-openCardsList.fill('',0,openCardsList.lenght);
-
 
 /*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
+ *
+ *   Starts the game
+ *
+ *
  */
-faArray = shuffle(faArray);
-deckElement = document.querySelector('.deck');
-deckElement.innerHTML = '';
-for (let i = 0; i < faArray.length; i++) {
-  //create <li> tag
-  const liElement = document.createElement('li');
-  liElement.classList.add('card');
-  //crete <i> tag
-  const iElement = document.createElement('i');
-  iElement.classList.add('fa',faArray[i]);
-  //append <i> to <li>
-  liElement.appendChild(iElement);
-  //apend <li> to <ul>
-  deckElement.appendChild(liElement);
+createDeckCards();
+//after creation of card, set an event listener for each card
+setEventListenerOnCards();
+//set event listener on start(or restart) button;
+setEventListenerOnStartButton()
+
+
+
+function createDeckCards() {
+  openCardsList.fill('',0,openCardsList.lenght);
+  /*
+   * Display the cards on the page
+   *   - shuffle the list of cards using the provided "shuffle" method below
+   *   - loop through each card and create its HTML
+   *   - add each card's HTML to the page
+   */
+  faArray = shuffle(faArray);
+  deckElement = document.querySelector('.deck');
+  deckElement.innerHTML = '';
+  for (let i = 0; i < faArray.length; i++) {
+    //create <li> tag
+    const liElement = document.createElement('li');
+    liElement.classList.add('card');
+    //crete <i> tag
+    const iElement = document.createElement('i');
+    iElement.classList.add('fa',faArray[i]);
+    //append <i> to <li>
+    liElement.appendChild(iElement);
+    //apend <li> to <ul>
+    deckElement.appendChild(liElement);
+  }
 }
 
 
-setEventListenerOnCards();
+
+
+function pressStartButton(){
+  console.log("pressStartButton");
+  createDeckCards();
+  setEventListenerOnCards();
+
+
+}
+
 
 //click callback
 function cardClicked(event) {
@@ -156,6 +181,11 @@ function isGameFinished() {
 }
 
 
+function setEventListenerOnStartButton() {
+
+  const btnStart = document.querySelector('.button-start');
+  btnStart.onclick = pressStartButton;
+}
 
 
 function setEventListenerOnCards() {
@@ -166,6 +196,7 @@ function setEventListenerOnCards() {
   }
 
 }
+
 
 
 
