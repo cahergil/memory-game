@@ -48,16 +48,19 @@ function initTimer(){
   timeTag = document.querySelector('.timer');
   if(intervalId !== -1) {
     clearInterval(intervalId);
-    timeTag.innerHTML = '00:00:00';
-    hours = 0;
-    minutes = 0;
-    seconds = 0;
+    resetTimer();
   }
   timer();
 
 }
 
+function resetTimer() {
+  timeTag.innerHTML = '00:00:00';
+  hours = 0;
+  minutes = 0;
+  seconds = 0;
 
+}
 
 function timer(){
   //t used to cleartime out later
