@@ -24,8 +24,8 @@ let faArray = ['fa-diamond',
 let openCardsList =new Array(16);
 
 let moveCounter;
-let start, end,seconds = 0,minutes = 0,hours =0,intervalId = -1;
-let timeTag;
+let start, end,seconds = 0,minutes = 0,intervalId = -1;
+let minutesSpan,secondsSpan;
 /*
  *
  *   Starts the game
@@ -45,7 +45,8 @@ setEventListenerOnCards();
 setEventListenerOnStartButton()
 
 function initTimer(){
-  timeTag = document.querySelector('.timer');
+  minutesSpan = document.querySelector('.minutes');
+  secondsSpan = document.querySelector('.seconds');
   if(intervalId !== -1) {
     clearInterval(intervalId);
     resetTimer();
@@ -55,8 +56,8 @@ function initTimer(){
 }
 
 function resetTimer() {
-  timeTag.innerHTML = '00:00:00';
-  hours = 0;
+  minutesSpan.innerHTML = '00';
+  secondsSpan.innerHTML = '00';
   minutes = 0;
   seconds = 0;
 
@@ -75,16 +76,15 @@ function add() {
   if(seconds >= 60) {
     seconds = 0;
     minutes++;
-    if(minutes >= 60 ){
-      minutes = 0;
-      hours++;
-    }
-
   }
 
-  timeTag.innerHTML =  (hours ? (hours > 9 ? hours : "0" + hours) : "00") +
-  ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") +
-  ":" + (seconds > 9 ? seconds : "0" + seconds);
+  secondsSpan.innerHTML = seconds > 9 ? seconds : "0" + seconds;
+  minutesSpan.innerHTML = minutes > 9 ? minutes : "0" + minutes;
+
+  //
+  // timeTag.innerHTML =  (hours ? (hours > 9 ? hours : "0" + hours) : "00") +
+  // ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") +
+  // ":" + ;
   //console.log(timeTag.textContext);
 
 }
@@ -132,7 +132,8 @@ function showModalDialog() {
   const dialog = document.querySelector('#myDialog');
   const moves = document.querySelector('.modal-moves');
   const totalTime = document.querySelector('.modal-total-time');
-  const timer = document.querySelector('.timer');
+  const minutes = document.querySelector('.minutes');
+  const seconds = document.querySelector('.seconds');
   const modalRating = document.querySelector('.modal-rating');
 
   //copie the stars in score-panel
@@ -144,7 +145,7 @@ function showModalDialog() {
   //moves
   moves.innerHTML = moveCounter;
   //total time to finish the game
-  totalTime.innerHTML = timer.innerHTML;
+  totalTime.innerHTML = minutes.innerHTML + ':' + seconds.innerHTML;
 
   //buttons yes callbacks
   const btnYes =   document.querySelector('.btn-yes');
@@ -299,7 +300,8 @@ function initilizeMoveCounter(){
   document.querySelector('.moves').innerHTML = moveCounter;
   const nodeList = document.querySelectorAll('.fa-star');
   nodeList.forEach(function(element){
-    element.style.color = '#ff8800';
+    element.style.color = '#B71C1C';
+
   });
 
 

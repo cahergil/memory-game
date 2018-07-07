@@ -195,10 +195,21 @@ header {
 
 }
 
-.timer {
+div .minutes{
 
   display: inline-block;
-  min-width: 100px;
+  width: 30px;
+  text-align: right;
+
+
+}
+
+
+div .seconds {
+
+  display: inline-block;
+  width: 23px;
+  text-align: left;
 
 }
 
