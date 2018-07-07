@@ -76,7 +76,7 @@ function add() {
     seconds = 0;
     minutes++;
     if(minutes >= 60 ){
-      munites = 0;
+      minutes = 0;
       hours++;
     }
 
