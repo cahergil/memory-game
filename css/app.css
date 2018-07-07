@@ -98,7 +98,7 @@ header {
 
 .deck .card:hover {
 
-    background: var(--secondaryColor);
+    background: grey;
 
 }
 
