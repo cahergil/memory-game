@@ -56,4 +56,6 @@ SOFTWARE.
 ### Front-End Web Developer Nanodegree
 <br><br>
 
-<img src="img/udacity_logo.svg">
+<p align="center">
+<img width="420" src="img/udacity_logo.svg">
+</p>
