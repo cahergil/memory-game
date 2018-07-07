@@ -16,6 +16,23 @@
         <header>
             <h1>Matching Game</h1>
         </header>
+        <!-- Modal dialog -->
+        <dialog id="myDialog">
+          <div class="modal-header">
+            <h2>Congratulations</h2>
+            <p>You have successfully matched all cards!</p>
+          </div>
+          <div class="modal-message">
+            <p>You completed the game in <span class="modal-total-time"></span>,
+              with a total of <span class="modal-moves"></span> moves.
+              Your rating was <div class="modal-rating"></div>. Do you want to play again now ?</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn-box btn-yes">Yes</button>
+            <button class="btn-box btn-no">No</button>
+          </div>
+        </dialog>
+        <!--end of dialog -->
 
         <section class="score-panel">
           <div class="score-panel-box panel-left">

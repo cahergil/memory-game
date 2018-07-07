@@ -127,7 +127,60 @@ function pressStartButton(){
 
 }
 
+function showModalDialog() {
 
+  const dialog = document.querySelector('#myDialog');
+  const moves = document.querySelector('.modal-moves');
+  const totalTime = document.querySelector('.modal-total-time');
+  const timer = document.querySelector('.timer');
+  const modalRating = document.querySelector('.modal-rating');
+
+  //copie the stars in score-panel
+  const nodeList = document.querySelectorAll('.fa-star');
+  nodeList.forEach(function(element) {
+    modalRating.innerHTML += element.outerHTML;
+  });
+
+  //moves
+  moves.innerHTML = moveCounter;
+  //total time to finish the game
+  totalTime.innerHTML = timer.innerHTML;
+
+  //buttons yes callbacks
+  const btnYes =   document.querySelector('.btn-yes');
+
+  btnYes.onclick = function() {
+    dialog.close();
+    pressStartButton();
+    modalRating.innerHTML ='';
+  };
+  btnYes.onkeydown = function(event) {
+    if ( event.key === 'Enter' || event.key === 'Escape' ) {
+      dialog.close();
+      pressStartButton();
+      modalRating.innerHTML ='';
+    }
+
+  };
+
+  //buttons no callbacks
+  const btnNo = document.querySelector('.btn-no');
+
+  btnNo.onclick = function() {
+    dialog.close();
+    modalRating.innerHTML ="";
+
+  };
+  btnNo.onkeydown = function(event) {
+    if ( event.key === 'Enter' || event.key === 'Escape' ) {
+      dialog.close();
+      modalRating.innerHTML ="";
+    }
+  };
+
+  dialog.showModal();
+
+}
 //click callback
 function cardClicked(event) {
    moveCounter++;
@@ -139,10 +192,11 @@ function cardClicked(event) {
            lockCardSymbol();
            removeCardsFromOpenedCardList();
            if(isGameFinished()) {
-            // stopTimer();
+              // stop timer, but don't reset it yet
               clearInterval(intervalId);
+              // showPopUp();
+              showModalDialog();
 
-            // showPopUp();
            }
 
        } else {
@@ -254,23 +308,17 @@ function initilizeMoveCounter(){
 
 function checkMoveCounterStatus(){
      document.querySelector('.moves').innerHTML = moveCounter;
-     if(moveCounter<20) {
 
-     } else if (moveCounter<40) {
+     if (moveCounter > 30) {
 
        document.querySelector('.fa-star:nth-child(3)').style.color = '#ccc';
 
-     } else {
-
+     } else if (moveCounter > 40) {
         //http://nthmaster.com/
         document.querySelector('.fa-star:nth-child(n+2)').style.color = '#ccc';
-     }
-
+    }
 
 }
-
-
-
 
 
 function setEventListenerOnStartButton() {

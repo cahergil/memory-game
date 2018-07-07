@@ -13,7 +13,6 @@ html {
 }
 
 
-
 html,
 body {
 
@@ -54,7 +53,6 @@ header {
 
 .deck {
 
-    /* width: 660px; */
     width: 100%;
     min-height: 680px;
     background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
@@ -102,6 +100,7 @@ header {
     font-size: 33px;
 
 }
+
 
 .deck .card.match {
 
@@ -182,6 +181,74 @@ header {
 }
 
 .timer {
+
   display: inline-block;
   min-width: 100px;
+
+}
+
+/*
+ * Styles for modal dialog
+ */
+#myDialog {
+  padding: 10px;
+  text-align: center;
+  width: 50vw;
+  background: grey;
+  border: 2px solid darkgrey;
+
+}
+
+
+.modal-header h2 {
+
+
+  color: black;
+
+}
+
+
+.modal-message {
+
+
+
+}
+
+
+.modal-footer .btn-box{
+
+  display: inline-block;
+  border: none;
+  margin: 10px;
+  padding: 1rem;
+  background: darkgrey;
+  cursor: pointer;
+  text-align: center;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: background 0.250 ms ease;
+
+}
+
+
+.modal-footer .btn-box:hover,
+.modal-footer .btn-box:focus {
+
+  background: white;
+
+}
+
+
+.modal-rating {
+
+  display: inline;
+
+}
+
+
+.modal-total-time,
+.modal-moves {
+
+  font-weight: bold;
+
 }

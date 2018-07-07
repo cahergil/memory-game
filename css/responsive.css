@@ -1,3 +1,12 @@
+@media screen and (max-width:470px) {
+
+  .deck .card {
+    height: 90px;
+
+  }
+}
+
+
 @media screen and (max-width:550px) {
 
     .card {
@@ -8,6 +17,11 @@
     .score-panel .score-panel-box  {
 
       width: 100%;
+
+    }
+    #myDialog {
+
+      width: 80%;
 
     }
 
