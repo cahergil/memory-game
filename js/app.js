@@ -183,14 +183,14 @@ function showModalDialog() {
 
 }
 
-function AlreadyTwoCardsOpened() {
+function alreadyTwoCardsOpened() {
    return (document.querySelectorAll('.card.open.show')).length == 2;
 }
 
 //click callback
 function cardClicked(event) {
    //prevent more than 2 cards opened at the same time
-   if(AlreadyTwoCardsOpened()) {
+   if(alreadyTwoCardsOpened()) {
      return;
    }
    moveCounter++;
