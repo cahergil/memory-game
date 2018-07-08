@@ -319,12 +319,13 @@ function initilizeMoveCounter(){
 
 function checkMoveCounterStatus(){
      document.querySelector('.moves').innerHTML = moveCounter;
+     if (moveCounter <20) {
 
-     if (moveCounter > 30) {
+     } else if (moveCounter < 35) {
 
        document.querySelector('.fa-star:nth-child(3)').style.color = '#ccc';
 
-     } else if (moveCounter > 40) {
+     } else  {
         //http://nthmaster.com/
         document.querySelector('.fa-star:nth-child(n+2)').style.color = '#ccc';
     }
