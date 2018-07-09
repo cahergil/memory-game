@@ -19,12 +19,12 @@ let faArray = ['fa-diamond',
 'fa-bicycle',
 'fa-paper-plane-o',
 'fa-cube'
-,]
+];
 
 let openCardsList =new Array(16);
 
 let moveCounter;
-let start, end,seconds = 0,minutes = 0,intervalId = -1;
+let seconds = 0,minutes = 0,intervalId = -1;
 let minutesSpan,secondsSpan;
 
 /*
@@ -42,7 +42,7 @@ createDeckCards();
 //after creation of card, set an event listener for each card
 setEventListenerOnCards();
 //set event listener on start(or restart) button;
-setEventListenerOnStartButton()
+setEventListenerOnStartButton();
 
 function initTimer(){
   minutesSpan = document.querySelector('.minutes');
@@ -93,7 +93,7 @@ function createDeckCards() {
    *   - add each card's HTML to the page
    */
   faArray = shuffle(faArray);
-  deckElement = document.querySelector('.deck');
+  const deckElement = document.querySelector('.deck');
   deckElement.innerHTML = '';
   for (let i = 0; i < faArray.length; i++) {
     //create <li> tag
@@ -262,7 +262,7 @@ function addCardToOpenedCard(card) {
 
 function isThereAMatch() {
 
-  const filtered = openCardsList.filter(item => item !='')
+  const filtered = openCardsList.filter(item => item !='');
   if( filtered[0] == filtered[1] ) {
     return true;
   } else {
