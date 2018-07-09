@@ -26,6 +26,7 @@ let openCardsList =new Array(16);
 let moveCounter;
 let start, end,seconds = 0,minutes = 0,intervalId = -1;
 let minutesSpan,secondsSpan;
+
 /*
  *
  *   Starts the game
@@ -33,8 +34,7 @@ let minutesSpan,secondsSpan;
  *
  */
 
-//init timer
-initTimer();
+
 //Initialization of the move moveCounter
 initilizeMoveCounter();
 //Initialization of the main panel(deck container) and cards
@@ -116,7 +116,10 @@ function pressStartButton(){
 
   createDeckCards();
   setEventListenerOnCards();
-  initTimer();
+  if(intervalId !== -1) {
+    clearInterval(intervalId);
+    resetTimer();
+  }
   initilizeMoveCounter();
 
 }
@@ -183,6 +186,10 @@ function alreadyTwoCardsOpened() {
 
 //click callback
 function cardClicked(event) {
+  if(moveCounter == 0) {
+    //init timer
+    initTimer();
+  }
    //prevent more than 2 cards opened at the same time
    if(alreadyTwoCardsOpened()) {
      return;
