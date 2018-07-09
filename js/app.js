@@ -1,6 +1,6 @@
 
 /*
- * Initialization of gloval variables
+ * Initialization of global variables
  */
 
 let faArray = ['fa-diamond',
@@ -66,7 +66,7 @@ function resetTimer() {
 function timer(){
   //t used to cleartime out later
   intervalId= setInterval(add,1000);
-  console.log(intervalId);
+  //console.log(intervalId);
 
 }
 
@@ -80,12 +80,6 @@ function add() {
 
   secondsSpan.innerHTML = seconds > 9 ? seconds : "0" + seconds;
   minutesSpan.innerHTML = minutes > 9 ? minutes : "0" + minutes;
-
-  //
-  // timeTag.innerHTML =  (hours ? (hours > 9 ? hours : "0" + hours) : "00") +
-  // ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") +
-  // ":" + ;
-  //console.log(timeTag.textContext);
 
 }
 
@@ -136,7 +130,7 @@ function showModalDialog() {
   const seconds = document.querySelector('.seconds');
   const modalRating = document.querySelector('.modal-rating');
 
-  //copie the stars in score-panel
+  //copy the stars in score-panel
   const nodeList = document.querySelectorAll('.fa-star');
   nodeList.forEach(function(element) {
     modalRating.innerHTML += element.outerHTML;
@@ -205,7 +199,8 @@ function cardClicked(event) {
               // stop timer, but don't reset it yet
               clearInterval(intervalId);
               // showPopUp();
-              showModalDialog();
+              // give time the matching animation to occur
+              setTimeout(showModalDialog,1000);
 
            }
 
