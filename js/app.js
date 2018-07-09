@@ -1,31 +1,33 @@
-
 /*
  * Initialization of global variables
  */
 
 let faArray = ['fa-diamond',
-'fa-paper-plane-o',
-'fa-anchor',
-'fa-bolt',
-'fa-cube',
-'fa-anchor',
-'fa-leaf',
-'fa-bicycle',
-'fa-diamond',
-'fa-bomb',
-'fa-leaf',
-'fa-bomb',
-'fa-bolt',
-'fa-bicycle',
-'fa-paper-plane-o',
-'fa-cube'
+  'fa-paper-plane-o',
+  'fa-anchor',
+  'fa-bolt',
+  'fa-cube',
+  'fa-anchor',
+  'fa-leaf',
+  'fa-bicycle',
+  'fa-diamond',
+  'fa-bomb',
+  'fa-leaf',
+  'fa-bomb',
+  'fa-bolt',
+  'fa-bicycle',
+  'fa-paper-plane-o',
+  'fa-cube'
 ];
 
-let openCardsList =new Array(16);
+let openCardsList = new Array(16);
 
 let moveCounter;
-let seconds = 0,minutes = 0,intervalId = -1;
-let minutesSpan,secondsSpan;
+let seconds = 0,
+  minutes = 0,
+  intervalId = -1;
+let minutesSpan, secondsSpan;
+
 
 /*
  *
@@ -44,10 +46,10 @@ setEventListenerOnCards();
 //set event listener on start(or restart) button;
 setEventListenerOnStartButton();
 
-function initTimer(){
+function initTimer() {
   minutesSpan = document.querySelector('.minutes');
   secondsSpan = document.querySelector('.seconds');
-  if(intervalId !== -1) {
+  if (intervalId !== -1) {
     clearInterval(intervalId);
     resetTimer();
   }
@@ -63,9 +65,9 @@ function resetTimer() {
 
 }
 
-function timer(){
+function timer() {
   //t used to cleartime out later
-  intervalId= setInterval(add,1000);
+  intervalId = setInterval(add, 1000);
   //console.log(intervalId);
 
 }
@@ -73,7 +75,7 @@ function timer(){
 function add() {
   seconds++;
 
-  if(seconds >= 60) {
+  if (seconds >= 60) {
     seconds = 0;
     minutes++;
   }
@@ -85,7 +87,7 @@ function add() {
 
 function createDeckCards() {
   //reset list of opened cards to empty
-  openCardsList.fill('',0,openCardsList.lenght);
+  openCardsList.fill('', 0, openCardsList.lenght);
   /*
    * Display the cards on the page
    *   - shuffle the list of cards using the provided "shuffle" method below
@@ -101,7 +103,7 @@ function createDeckCards() {
     liElement.classList.add('card');
     //crete <i> tag
     const iElement = document.createElement('i');
-    iElement.classList.add('fa',faArray[i]);
+    iElement.classList.add('fa', faArray[i]);
     //append <i> to <li>
     liElement.appendChild(iElement);
     //apend <li> to <ul>
@@ -112,11 +114,11 @@ function createDeckCards() {
 
 
 
-function pressStartButton(){
+function pressStartButton() {
 
   createDeckCards();
   setEventListenerOnCards();
-  if(intervalId !== -1) {
+  if (intervalId !== -1) {
     clearInterval(intervalId);
     resetTimer();
   }
@@ -145,18 +147,18 @@ function showModalDialog() {
   totalTime.innerHTML = minutes.innerHTML + ':' + seconds.innerHTML;
 
   //buttons yes callbacks
-  const btnYes =   document.querySelector('.btn-yes');
+  const btnYes = document.querySelector('.btn-yes');
 
   btnYes.onclick = function() {
     dialog.close();
     pressStartButton();
-    modalRating.innerHTML ='';
+    modalRating.innerHTML = '';
   };
   btnYes.onkeydown = function(event) {
-    if ( event.key === 'Enter' || event.key === 'Escape' ) {
+    if (event.key === 'Enter' || event.key === 'Escape') {
       dialog.close();
       pressStartButton();
-      modalRating.innerHTML ='';
+      modalRating.innerHTML = '';
     }
 
   };
@@ -166,13 +168,13 @@ function showModalDialog() {
 
   btnNo.onclick = function() {
     dialog.close();
-    modalRating.innerHTML ="";
+    modalRating.innerHTML = "";
 
   };
   btnNo.onkeydown = function(event) {
-    if ( event.key === 'Enter' || event.key === 'Escape' ) {
+    if (event.key === 'Enter' || event.key === 'Escape') {
       dialog.close();
-      modalRating.innerHTML ="";
+      modalRating.innerHTML = "";
     }
   };
 
@@ -181,41 +183,41 @@ function showModalDialog() {
 }
 
 function alreadyTwoCardsOpened() {
-   return (document.querySelectorAll('.card.open.show')).length == 2;
+  return (document.querySelectorAll('.card.open.show')).length == 2;
 }
 
 //click callback
 function cardClicked(event) {
 
-   if(moveCounter == 0) {
-      //init timer
-      initTimer();
-   }
-   //prevent more than 2 cards opened at the same time
-   if(alreadyTwoCardsOpened()) {
-     return;
-   }
+  if (moveCounter == 0) {
+    //init timer
+    initTimer();
+  }
+  //prevent more than 2 cards opened at the same time
+  if (alreadyTwoCardsOpened()) {
+    return;
+  }
 
 
-   displayCardSymbol(event);
-   if(secondCardClicked() ) {
+  displayCardSymbol(event);
+  if (secondCardClicked()) {
 
-       if(isThereAMatch()) {
-           lockCardSymbol();
-           removeCardsFromOpenedCardList();
-           if(isGameFinished()) {
-              // stop timer, but don't reset it yet
-              clearInterval(intervalId);
-              // showPopUp();
-              // give time the matching animation to occur
-              setTimeout(showModalDialog,1000);
+    if (isThereAMatch()) {
+      lockCardSymbol();
+      removeCardsFromOpenedCardList();
+      if (isGameFinished()) {
+        // stop timer, but don't reset it yet
+        clearInterval(intervalId);
+        // showPopUp();
+        // give time the matching animation to occur
+        setTimeout(showModalDialog, 1000);
 
-           }
+      }
 
-       } else {
-           setTimeout(hideCardSymbol,1000);
-           setTimeout(removeCardsFromOpenedCardList,1300);
-       }
+    } else {
+      setTimeout(hideCardSymbol, 1000);
+      setTimeout(removeCardsFromOpenedCardList, 1300);
+    }
 
   }
 }
@@ -223,28 +225,29 @@ function cardClicked(event) {
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = array.length,
+    temporaryValue, randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
 
-    return array;
+  return array;
 }
 
 
 function displayCardSymbol(event) {
-    //disable temporarily click event on this card
-    event.target.onclick = null;
-    event.target.classList.add("open","show");
-    moveCounter++;
-    checkMoveCounterStatus();
-    //console.log(event.target.parentNode);
-    addCardToOpenedCard(event.target);
+  //disable temporarily click event on this card
+  event.target.onclick = null;
+  event.target.classList.add("open", "show");
+  moveCounter++;
+  checkMoveCounterStatus();
+  //console.log(event.target.parentNode);
+  addCardToOpenedCard(event.target);
 
 }
 
@@ -253,8 +256,8 @@ function addCardToOpenedCard(card) {
   //console.log(children);
 
   for (let i = 0; i < children.length; i++) {
-    if(children[i].classList.value =='card open show') {
-        openCardsList[i] = children[i].innerHTML;
+    if (children[i].classList.value == 'card open show') {
+      openCardsList[i] = children[i].innerHTML;
     }
   }
 
@@ -262,62 +265,63 @@ function addCardToOpenedCard(card) {
 
 function isThereAMatch() {
 
-  const filtered = openCardsList.filter(item => item !='');
-  if( filtered[0] == filtered[1] ) {
+  const filtered = openCardsList.filter(item => item != '');
+  if (filtered[0] == filtered[1]) {
     return true;
   } else {
     return false;
   }
 }
 
-function hideCardSymbol(event){
+function hideCardSymbol(event) {
   for (let i = 0; i < openCardsList.length; i++) {
-      if( openCardsList[i] !== '' ) {
-        let elements= document.querySelectorAll('.card.open.show');
-        elements.forEach(function(element) {
-          element.classList.remove('open','show');
-          element.onclick = cardClicked;
-        });
-      }
+    if (openCardsList[i] !== '') {
+      let elements = document.querySelectorAll('.card.open.show');
+      elements.forEach(function(element) {
+        element.classList.remove('open', 'show');
+        element.onclick = cardClicked;
+      });
+    }
   }
 }
 
-function removeCardsFromOpenedCardList(){
+function removeCardsFromOpenedCardList() {
 
-  openCardsList.fill('',0,openCardsList.length);
+  openCardsList.fill('', 0, openCardsList.length);
 
 }
+
 function secondCardClicked() {
- return (openCardsList.filter(item => item != '')).length == 2 ? true: false;
+  return (openCardsList.filter(item => item != '')).length == 2 ? true : false;
 
 }
 
-function lockCardSymbol(){
+function lockCardSymbol() {
   for (let i = 0; i < openCardsList.length; i++) {
-      if( openCardsList[i] !== '' ) {
-        let elements= document.querySelectorAll('.card.open.show');
-        elements.forEach(function(element) {
-          element.classList.remove('open','show');
-          element.classList.add('match');
-          element.onclick = null;
-        });
-      }
+    if (openCardsList[i] !== '') {
+      let elements = document.querySelectorAll('.card.open.show');
+      elements.forEach(function(element) {
+        element.classList.remove('open', 'show');
+        element.classList.add('match');
+        element.onclick = null;
+      });
+    }
   }
 
 }
 
 function isGameFinished() {
 
- return document.querySelectorAll('.card.match').length === 16 ? true: false;
+  return document.querySelectorAll('.card.match').length === 16 ? true : false;
 
 }
 
-function initilizeMoveCounter(){
+function initilizeMoveCounter() {
 
   moveCounter = 0;
   document.querySelector('.moves').innerHTML = moveCounter;
   const nodeList = document.querySelectorAll('.fa-star');
-  nodeList.forEach(function(element){
+  nodeList.forEach(function(element) {
     element.style.color = '#B71C1C';
 
   });
@@ -326,18 +330,18 @@ function initilizeMoveCounter(){
 }
 
 
-function checkMoveCounterStatus(){
-     document.querySelector('.moves').innerHTML = moveCounter;
-     if (moveCounter <20) {
+function checkMoveCounterStatus() {
+  document.querySelector('.moves').innerHTML = moveCounter;
+  if (moveCounter < 20) {
 
-     } else if (moveCounter < 35) {
+  } else if (moveCounter < 35) {
 
-       document.querySelector('.fa-star:nth-child(3)').style.color = '#ccc';
+    document.querySelector('.fa-star:nth-child(3)').style.color = '#ccc';
 
-     } else  {
-        //http://nthmaster.com/
-        document.querySelector('.fa-star:nth-child(n+2)').style.color = '#ccc';
-    }
+  } else {
+    //http://nthmaster.com/
+    document.querySelector('.fa-star:nth-child(n+2)').style.color = '#ccc';
+  }
 
 }
 
