@@ -186,16 +186,17 @@ function alreadyTwoCardsOpened() {
 
 //click callback
 function cardClicked(event) {
-  if(moveCounter == 0) {
-    //init timer
-    initTimer();
-  }
+
+   if(moveCounter == 0) {
+      //init timer
+      initTimer();
+   }
    //prevent more than 2 cards opened at the same time
    if(alreadyTwoCardsOpened()) {
      return;
    }
-   moveCounter++;
-   checkMoveCounterStatus();
+
+
    displayCardSymbol(event);
    if(secondCardClicked() ) {
 
@@ -235,10 +236,15 @@ function shuffle(array) {
     return array;
 }
 
+
 function displayCardSymbol(event) {
-  event.target.classList.add("open","show");
-  //console.log(event.target.parentNode);
-  addCardToOpenedCard(event.target);
+    //disable temporarily click event on this card
+    event.target.onclick = null;
+    event.target.classList.add("open","show");
+    moveCounter++;
+    checkMoveCounterStatus();
+    //console.log(event.target.parentNode);
+    addCardToOpenedCard(event.target);
 
 }
 
@@ -264,12 +270,13 @@ function isThereAMatch() {
   }
 }
 
-function hideCardSymbol(){
+function hideCardSymbol(event){
   for (let i = 0; i < openCardsList.length; i++) {
       if( openCardsList[i] !== '' ) {
         let elements= document.querySelectorAll('.card.open.show');
         elements.forEach(function(element) {
           element.classList.remove('open','show');
+          element.onclick = cardClicked;
         });
       }
   }
